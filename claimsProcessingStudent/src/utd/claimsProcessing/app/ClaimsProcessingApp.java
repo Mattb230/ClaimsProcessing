@@ -17,12 +17,17 @@ import utd.claimsProcessing.messageProcessors.BuildClaimsFolderProcessor;
 import utd.claimsProcessing.messageProcessors.DenyClaimsProcessor;
 import utd.claimsProcessing.messageProcessors.MessageProcessor;
 import utd.claimsProcessing.messageProcessors.PaymentProcessor;
+import utd.claimsProcessing.messageProcessors.ProcessDentalClaimProcessor;
+import utd.claimsProcessing.messageProcessors.ProcessGPClaimProcessor;
+import utd.claimsProcessing.messageProcessors.ProcessOptometryClaimProcessor;
+import utd.claimsProcessing.messageProcessors.ProcessRadiologyClaimProcessor;
 import utd.claimsProcessing.messageProcessors.QueueNames;
 import utd.claimsProcessing.messageProcessors.RejectedClaimsProcessor;
 import utd.claimsProcessing.messageProcessors.RetrieveMemberProcessor;
 import utd.claimsProcessing.messageProcessors.RetrievePolicyProcessor;
 import utd.claimsProcessing.messageProcessors.RetrieveProcedureProcessor;
 import utd.claimsProcessing.messageProcessors.RetrieveProviderProcessor;
+import utd.claimsProcessing.messageProcessors.RouteClaimProcessor;
 import utd.claimsProcessing.messageProcessors.SaveFolderProcessor;
 
 /**
@@ -81,6 +86,12 @@ public class ClaimsProcessingApp implements ExceptionListener
 		installProcessor(new RetrieveProviderProcessor(session), QueueNames.retrieveProvider);
 		installProcessor(new RetrievePolicyProcessor(session), QueueNames.retrievePolicy);
 		installProcessor(new RetrieveProcedureProcessor(session), QueueNames.retrieveProcedure);
+		installProcessor(new RouteClaimProcessor(session), QueueNames.routeClaim);
+		installProcessor(new ProcessRadiologyClaimProcessor(session), QueueNames.processRadiologyClaim);
+		installProcessor(new ProcessOptometryClaimProcessor(session), QueueNames.processOptometryClaim);
+		installProcessor(new ProcessGPClaimProcessor(session), QueueNames.processGPClaim);
+		installProcessor(new ProcessDentalClaimProcessor(session), QueueNames.processDentalClaim);
+		
 
 		installProcessor(new PaymentProcessor(session), QueueNames.payClaim);
 		installProcessor(new DenyClaimsProcessor(session), QueueNames.denyClaim);

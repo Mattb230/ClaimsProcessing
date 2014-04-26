@@ -11,15 +11,11 @@ import javax.jms.Session;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import utd.claimsProcessing.dao.MemberDAO;
 import utd.claimsProcessing.dao.PolicyDAO;
-import utd.claimsProcessing.dao.ProviderDAO;
 import utd.claimsProcessing.domain.Claim;
 import utd.claimsProcessing.domain.ClaimFolder;
-import utd.claimsProcessing.domain.Member;
 import utd.claimsProcessing.domain.Policy;
 import utd.claimsProcessing.domain.PolicyState;
-import utd.claimsProcessing.domain.Provider;
 import utd.claimsProcessing.domain.RejectedClaimInfo;
 
 /**
@@ -76,7 +72,7 @@ public class RetrievePolicyProcessor extends MessageProcessor implements Message
 			}
 			else if(policy.getPolicyState() == PolicyState.suspended){
 				Claim claim = claimFolder.getClaim();
-				RejectedClaimInfo rejectedClaimInfo = new RejectedClaimInfo("Member Policy is suspended");
+				RejectedClaimInfo rejectedClaimInfo = new RejectedClaimInfo("Member Policy is Suspended");
 				claimFolder.setRejectedClaimInfo(rejectedClaimInfo);
 				if(!StringUtils.isBlank(claim.getReplyTo())) {
 					rejectedClaimInfo.setEmailAddr(claim.getReplyTo());
@@ -94,7 +90,7 @@ public class RetrievePolicyProcessor extends MessageProcessor implements Message
 			}
 		}
 		catch (Exception ex) {
-			logError("RetrieveMemberProcessor.onMessage() " + ex.getMessage(), ex);
+			logError("RetrievePolicyProcessor.onMessage() " + ex.getMessage(), ex);
 		}
 	}//end onMessage
 }

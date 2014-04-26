@@ -11,18 +11,15 @@ import javax.jms.Session;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import utd.claimsProcessing.dao.MemberDAO;
-import utd.claimsProcessing.dao.PolicyDAO;
 import utd.claimsProcessing.dao.ProviderDAO;
 import utd.claimsProcessing.domain.Claim;
 import utd.claimsProcessing.domain.ClaimFolder;
-import utd.claimsProcessing.domain.Member;
 import utd.claimsProcessing.domain.Provider;
 import utd.claimsProcessing.domain.RejectedClaimInfo;
 
 /**
- * A message processor responsible for retrieving the Provider identified by the Claim
- * from the MemberDAO. The retrieved member is attached to the ClaimFolder before
+ * A message provider responsible for retrieving the Provider identified by the Claim
+ * from the ProviderDAO. The retrieved member is attached to the ClaimFolder before
  * passing to the next step in the process. 
  */
 public class RetrieveProviderProcessor extends MessageProcessor implements MessageListener {
@@ -74,7 +71,7 @@ public class RetrieveProviderProcessor extends MessageProcessor implements Messa
 			}
 		}
 		catch (Exception ex) {
-			logError("RetrieveMemberProcessor.onMessage() " + ex.getMessage(), ex);
+			logError("RetrieveProviderProcessor.onMessage() " + ex.getMessage(), ex);
 		}
 	}//end onMessage
 	

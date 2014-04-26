@@ -100,4 +100,20 @@ public class ClaimFolder implements Serializable
 	{
 		this.procedure = procedure;
 	}
+	
+	//return true if PolicyState is active
+	public boolean validatePolicy(){
+		if(policy.getPolicyState() == PolicyState.active){
+			return true;
+		}
+		return false;
+	}
+	
+	//return true if the procedure is contained in the policy
+	public boolean validateProcedure(ProcedureCategory category){
+		if(policy.getCategories().contains(category)){
+			return true;
+		}
+		return false;
+	}
 }

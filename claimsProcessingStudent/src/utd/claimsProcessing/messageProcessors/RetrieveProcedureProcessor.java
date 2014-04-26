@@ -11,20 +11,15 @@ import javax.jms.Session;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import utd.claimsProcessing.dao.MemberDAO;
-import utd.claimsProcessing.dao.PolicyDAO;
 import utd.claimsProcessing.dao.ProcedureDAO;
-import utd.claimsProcessing.dao.ProviderDAO;
 import utd.claimsProcessing.domain.Claim;
 import utd.claimsProcessing.domain.ClaimFolder;
-import utd.claimsProcessing.domain.Member;
 import utd.claimsProcessing.domain.Procedure;
-import utd.claimsProcessing.domain.Provider;
 import utd.claimsProcessing.domain.RejectedClaimInfo;
 
 /**
- * A message processor responsible for retrieving the Policy identified by the Claim
- * from the PolicyrDAO. The retrieved member is attached to the ClaimFolder before
+ * A message processor responsible for retrieving the procedure identified by the Claim
+ * from the procedureDAO. The retrieved member is attached to the ClaimFolder before
  * passing to the next step in the process. 
  */
 public class RetrieveProcedureProcessor extends MessageProcessor implements MessageListener{
@@ -58,7 +53,7 @@ public class RetrieveProcedureProcessor extends MessageProcessor implements Mess
 			
 			if(procedure == null) {
 				Claim claim = claimFolder.getClaim();
-				RejectedClaimInfo rejectedClaimInfo = new RejectedClaimInfo("Procedure Code Found: " + procedureCode);
+				RejectedClaimInfo rejectedClaimInfo = new RejectedClaimInfo("Procedure Code Not Found: " + procedureCode);
 				claimFolder.setRejectedClaimInfo(rejectedClaimInfo);
 				if(!StringUtils.isBlank(claim.getReplyTo())) {
 					rejectedClaimInfo.setEmailAddr(claim.getReplyTo());
